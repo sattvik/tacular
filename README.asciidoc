@@ -1,0 +1,30 @@
+tacular: What’s mssing from spec
+================================
+
+_tacular_ is a library that supplements http://clojure.org/about/spec[spec]
+with additional useful functionality.   It supports both Clojure and ClojureScript.
+
+Current features include:
+
+* Integration with `clojure.test`/`cljs.test`
+
+
+`clojure.test`/`cljs.test` integration
+--------------------------------------
+
+_tacular_ adds an additional assertion for `is`: `checks?`.  This takes the
+same arguments as http://clojure.github.io/clojure/branch-master/clojure.spec-api.html#clojure.spec.test/check[`clojure.spec.test/check`].
+In order to use this, you will need require the `io.clojure.tacular.clojure-test` namespace.
+
+
+[source,clojure]
+------------------------------------------------------------------------------
+(ns com.example.foo-test
+ (:require [clojure.test :as t :refer [deftest is]
+           [com.example.foo :as foo]
+           [io.clojure.tacular.clojure-test])
+
+
+(deftest test-bar
+  (is (checks? `foo/bar)))
+------------------------------------------------------------------------------
