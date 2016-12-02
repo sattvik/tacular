@@ -11,7 +11,8 @@
 
                   [adzerk/boot-test "RELEASE" :scope "test"]
                   [crisptrutski/boot-cljs-test "RELEASE" :scope "test"]]
-  :exclusions '#{org.clojure/clojure})
+  :exclusions '#{org.clojure/clojure}
+  :repositories #(conj % ["clojars" {:url "https://clojars.org/repo/"}]))
 
 (require '[adzerk.boot-test :refer [test]])
 (require '[crisptrutski.boot-cljs-test :refer [test-cljs]])
@@ -28,7 +29,8 @@
        :license     {"Eclipse Public License"
                      "http://www.eclipse.org/legal/epl-v10.html"}}
   test {:namespaces test-namespaces}
-  test-cljs {:namespaces test-namespaces})
+  test-cljs {:namespaces test-namespaces}
+  push {:repo "clojars"})
 
 (deftask with-tests
   "Adds test settings."
