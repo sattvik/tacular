@@ -24,7 +24,6 @@ In order to use this, you will need require the `io.clojure.tacular.clojure-test
            [com.example.foo :as foo]
            [io.clojure.tacular.clojure-test])
 
-
 (deftest test-bar
   (is (checks? `foo/bar)))
 ------------------------------------------------------------------------------
