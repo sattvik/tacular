@@ -21,7 +21,9 @@
 (require '[samestep.boot-refresh :refer [refresh]])
 
 (def test-namespaces
-  '#{io.clojure.tacular.clojure-test-test})
+  '#{io.clojure.tacular-test
+     io.clojure.tacular.clojure-test-test
+     io.clojure.tacular.implicits-test})
 
 (task-options!
   pom {:project     project

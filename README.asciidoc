@@ -1,24 +1,26 @@
 tacular: What’s mssing from spec
 ================================
+Daniel Solano_Gómez
+:compat-mode!:
 
-_tacular_ is a library that supplements http://clojure.org/about/spec[spec]
-with additional useful functionality.   It supports both Clojure and ClojureScript.
+_tacular_ is a library that supplements http://clojure.org/about/spec[spec] with additional useful functionality.
+It supports both Clojure and ClojureScript.
 
 Current features include:
 
 * Integration with `clojure.test`/`cljs.test`
+* Using regular expressions as specs
 
 
-`clojure.test`/`cljs.test` integration
---------------------------------------
+== `clojure.test`/`cljs.test` integration
 
-_tacular_ adds an additional assertion for `is`: `checks?`.  This takes the
-same arguments as http://clojure.github.io/clojure/branch-master/clojure.spec-api.html#clojure.spec.test/check[`clojure.spec.test/check`].
+_tacular_ adds an additional assertion for `is`: `checks?`.
+This takes the same arguments as http://clojure.github.io/clojure/branch-master/clojure.spec-api.html#clojure.spec.test/check[`clojure.spec.test/check`].
 In order to use this, you will need require the `io.clojure.tacular.clojure-test` namespace.
 
 
 [source,clojure]
-------------------------------------------------------------------------------
+----
 (ns com.example.foo-test
  (:require [clojure.test :as t :refer [deftest is]
            [com.example.foo :as foo]
@@ -26,4 +28,41 @@ In order to use this, you will need require the `io.clojure.tacular.clojure-test
 
 (deftest test-bar
   (is (checks? `foo/bar)))
-------------------------------------------------------------------------------
+----
+
+== Regular expressions as specs
+
+With _tacular_, you can now use regular expressions as specs!
+There are two ways to do this:
+
+1. Using the `re-matches?` function.
+2. Using regular expressions directly
+
+Moreover, if you have Gary Fredericks’ excellent https://github.com/gfredericks/test.chuck[_test.chuck_] library availabe, you’ll even get a generator (but not in ClojureScript, sadly).
+
+=== Using `re-matches?`
+
+This way is straightforward, just use the `io.clojure.tacular/re-matches?` function with a regular expression as an argument.
+
+[source,clojure]
+----
+(ns com.example.foo
+ (:require [clojure.spec :as s]
+           [io.clojure.tacular :refer [re-matches?])
+
+(s/def ::foo (re-matches? #”fo+”))
+----
+
+=== Using regular expressions directly
+
+For a less verbose experience, you can just import the `io.clojure.tacular.implicits` namespace.
+Once you do that, all regular expressions become specs.
+
+[source,clojure]
+----
+(ns com.example.foo
+ (:require [clojure.spec :as s]
+           [io.clojure.tacular.implicits)
+
+(s/def ::foo #”fo+”)
+----
