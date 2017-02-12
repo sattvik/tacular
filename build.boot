@@ -11,14 +11,19 @@
 
                   ;; Boot deps
                   [adzerk/boot-test "RELEASE" :scope "test"]
+                  [adzerk/bootlaces "RELEASE" :scope "test"]
                   [crisptrutski/boot-cljs-test "RELEASE" :scope "test"]
                   [samestep/boot-refresh "RELEASE" :scope "test"]]
   :exclusions '#{org.clojure/clojure}
   :repositories #(conj % ["clojars" {:url "https://clojars.org/repo/"}]))
 
 (require '[adzerk.boot-test :refer [test]])
+(require '[adzerk.bootlaces :refer :all])
+(require '[boot.git :refer [last-commit]])
 (require '[crisptrutski.boot-cljs-test :refer [test-cljs]])
 (require '[samestep.boot-refresh :refer [refresh]])
+
+(bootlaces! version)
 
 (def test-namespaces
   '#{io.clojure.tacular-test
@@ -35,7 +40,11 @@
                      "http://www.eclipse.org/legal/epl-v10.html"}}
   test {:namespaces test-namespaces}
   test-cljs {:namespaces test-namespaces}
-  push {:repo "clojars"})
+  push {:repo "clojars"
+        :ensure-branch "master"
+        :ensure-clean true
+        :ensure-tag (last-commit)
+        :ensure-version version})
 
 (deftask with-tests
   "Adds test settings."
