@@ -12,6 +12,10 @@ Current features include:
 * Using regular expressions as specs
 
 
+Grab _tacular_ from Clojars:
+
+https://clojars.org/io.clojure/tacular[image:https://img.shields.io/clojars/v/io.clojure/tacular.svg[Clojars Project]]
+
 == `clojure.test`/`cljs.test` integration
 
 _tacular_ adds an additional assertion for `is`: `checks?`.
