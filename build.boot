@@ -3,19 +3,22 @@
 
 (set-env!
   :resource-paths #{"src"}
-  :dependencies '[[org.clojure/clojure "RELEASE" :scope "provided"]
+  :dependencies `[[org.clojure/clojure ~(clojure-version) :scope "provided"]
                   [org.clojure/clojurescript "RELEASE" :scope "provided"]
                   [com.gfredericks/test.chuck "RELEASE" :scope "provided"]
 
                   [org.clojure/test.check "RELEASE" :scope "test"]
 
+                  ;; Boot deps
                   [adzerk/boot-test "RELEASE" :scope "test"]
-                  [crisptrutski/boot-cljs-test "RELEASE" :scope "test"]]
+                  [crisptrutski/boot-cljs-test "RELEASE" :scope "test"]
+                  [samestep/boot-refresh "RELEASE" :scope "test"]]
   :exclusions '#{org.clojure/clojure}
   :repositories #(conj % ["clojars" {:url "https://clojars.org/repo/"}]))
 
 (require '[adzerk.boot-test :refer [test]])
 (require '[crisptrutski.boot-cljs-test :refer [test-cljs]])
+(require '[samestep.boot-refresh :refer [refresh]])
 
 (def test-namespaces
   '#{io.clojure.tacular.clojure-test-test})
@@ -42,11 +45,11 @@
   "Runs in development mode."
   []
   (comp (with-tests)
-        (repl)
         (watch)
+        (refresh)
+        (repl :server true)
         (test)
-        (test-cljs)
-        ))
+        (test-cljs)))
 
 (deftask build
   "Build and install the project locally."
