@@ -38,7 +38,6 @@
        :scm         {:url "https://github.com/sattvik/tacular"}
        :license     {"Eclipse Public License"
                      "http://www.eclipse.org/legal/epl-v10.html"}}
-  push {:gpg-sign false}
   test {:namespaces test-namespaces}
   test-cljs {:namespaces test-namespaces})
 
