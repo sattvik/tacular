@@ -39,12 +39,7 @@
        :license     {"Eclipse Public License"
                      "http://www.eclipse.org/legal/epl-v10.html"}}
   test {:namespaces test-namespaces}
-  test-cljs {:namespaces test-namespaces}
-  push {:repo "clojars"
-        :ensure-branch "master"
-        :ensure-clean true
-        :ensure-tag (last-commit)
-        :ensure-version version})
+  test-cljs {:namespaces test-namespaces})
 
 (deftask with-tests
   "Adds test settings."
