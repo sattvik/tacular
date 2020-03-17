@@ -52,7 +52,7 @@ This way is straightforward, just use the `io.clojure.tacular/re-matches?` funct
 ----
 (ns com.example.foo
  (:require [clojure.spec :as s]
-           [io.clojure.tacular :refer [re-matches?])
+           [io.clojure.tacular :refer [re-matches?]))
 
 (s/def ::foo (re-matches? #”fo+”))
 ----
@@ -66,7 +66,7 @@ Once you do that, all regular expressions become specs.
 ----
 (ns com.example.foo
  (:require [clojure.spec :as s]
-           [io.clojure.tacular.implicits)
+           [io.clojure.tacular.implicits]))
 
 (s/def ::foo #”fo+”)
 ----
